@@ -11,16 +11,22 @@ class AuthorsList extends Component {
 
   filterAuthors = query => {
     query = query.toLowerCase();
-    let filteredAuthors = this.props.authors.filter(author =>
-      `${author.first_name} ${author.last_name}`.toLowerCase().includes(query)
-    );
+    const filteredAuthors = !this.state.filteredAuthors
+      ? null
+      : this.props.authors.filter(author =>
+          `${author.first_name} ${author.last_name}`
+            .toLowerCase()
+            .includes(query)
+        );
     this.setState({ filteredAuthors: filteredAuthors });
   };
 
   render() {
-    const authorCards = this.state.filteredAuthors.map(author => (
-      <AuthorCard key={author.id} author={author} />
-    ));
+    const authorCards = !this.state.filteredAuthors
+      ? null
+      : this.state.filteredAuthors.map(author => (
+          <AuthorCard key={author.id} author={author} />
+        ));
 
     return (
       <div>
